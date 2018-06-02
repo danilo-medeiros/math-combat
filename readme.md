@@ -1,2 +1,2 @@
-==Math combat==
+### Math combat ###
 
