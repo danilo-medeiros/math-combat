@@ -1,47 +1,40 @@
-import Enemy from "./elements/enemy";
-import Player from "./elements/player";
-import Elements from "./elements/elements";
+import Level from "./levels/level";
 
-let player;
-let backgroundImage;
+let level;
 
 function setup() {
 	createCanvas(800, 600);
-	player = new Player("1");
-	Elements.add(player, new Enemy("1", width / 2));
-	backgroundImage = loadImage("assets/img/environment/level_2.png");
-
+	level = new Level("1", 0);
 }
 
 function draw() {
 
-	background(backgroundImage);
+	// background(level.background);
+	background(332);
 
-	Elements.list.forEach(e => {
-		e.display();
-	});
+	level.update();
 
-	Elements.checkCollisions();
-	
-	if (keyIsDown(LEFT_ARROW)) {
-		player.move(-1, 0);
+	if (keyIsPressed) {
+		level.keyEvent(keyCode);
 	}
-	if (keyIsDown(RIGHT_ARROW)) {
-		player.move(1, 0);
-	}
-	if (keyIsDown(UP_ARROW)) {
-		player.move(0, -1);
-	}
-	if (keyIsDown(DOWN_ARROW)) {
-		player.move(0, 1);
-	}
-	if (keyIsDown(32)) {
-		player.shot();
-	}
-	
-}
 
-function keyPressed() {
+	/* if (Elements.list.length > 0) {
+		if (keyIsDown(LEFT_ARROW)) {
+			Elements.list[0].move(-1, 0);
+		}
+		if (keyIsDown(RIGHT_ARROW)) {
+			Elements.list[0].move(1, 0);
+		}
+		if (keyIsDown(UP_ARROW)) {
+			Elements.list[0].move(0, -1);
+		}
+		if (keyIsDown(DOWN_ARROW)) {
+			Elements.list[0].move(0, 1);
+		}
+		if (keyIsDown(32)) {
+			Elements.list[0].shot();
+		}
+	} */
 	
 }
 

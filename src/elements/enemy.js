@@ -3,13 +3,13 @@ import Plane from "./plane";
 export default class Enemy extends Plane {
 
     constructor(type, x) {
-        super("enemy" + type, x - 50, 50, 100, 100);
+        super("enemy" + type, x, 50);
         this.counterToMove = 0;
         this.startingX = this.x;
     }
 
     display() {
-        this.senoid();
+        //this.senoid();
         super.display();
     }
 

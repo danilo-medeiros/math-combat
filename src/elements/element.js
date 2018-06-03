@@ -5,33 +5,43 @@ export default class Element {
 
     constructor(image, x, y, sizeX, sizeY, tolerance) {
         this.image = loadImage(image);
-        this.x = x;
-        this.y = y;
+        this.x = x - sizeX / 2;
+        this.y = y - sizeY / 2;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.tolerance = tolerance;
         this.speed = 1;
         this.isDestroyed = false;
-        this.status = true;
         this.explosionCounter = 0;
         this.id = 0;
     }
 
     display() {
-        if (this.status) {
-            image(this.image, this.x, this.y, this.sizeX, this.sizeY);
-            if (this.isDestroyed)
-                this.explosion();
-        }
+        image(this.image, this.x, this.y, this.sizeX, this.sizeY);
+        if (this.isDestroyed)
+            this.explosion();
+    }
+
+    // Verifica se o elemento estará nas bordas direita ou 
+    // esquerda após a definição da nova posição.
+    // Retorna a própria posição se sim, a nova posição se não.
+    newPositionX(x){
+        let newPosX = this.x + x * this.speed;
+        if (newPosX < width - this.sizeX && newPosX > 0)
+            return newPosX;
+        return this.x;
+    }
+
+    newPositionY(y){
+        let newPosY = this.y + y * this.speed;
+        if (newPosY < height - this.sizeY && newPosY > 0)
+            return newPosY;
+        return this.y;
     }
 
     move(x, y) {
-        let newPosX = this.x + x * this.speed;
-        let newPosY = this.y + y * this.speed;
-        if (newPosX < width - this.sizeX && newPosX > 0)
-            this.x = newPosX;
-        if (newPosY < height - this.sizeY && newPosY > 0)
-            this.y = newPosY;
+        this.x = this.newPositionX(x);
+        this.y = this.newPositionY(y);
         this.display();
     }
 
@@ -48,7 +58,6 @@ export default class Element {
             this.status = false;
             return;
         }
-
         this.image = loadImage(EXPLOSIONS["explosion" + actualImg.toString()]);
     }
 
@@ -73,10 +82,9 @@ export default class Element {
 
     getDestroyableInterval() {
         return [
-            [this.x - this.sizeX / 2 + this.tolerance / 2, this.x + this.sizeX / 2 - this.tolerance / 2],
-            [this.y - this.sizeY / 2 + this.tolerance / 2, this.y + this.sizeY / 2 - this.tolerance / 2]
+            [this.x + this.tolerance / 2, this.x + this.sizeX - this.tolerance / 2],
+            [this.y + this.tolerance / 2, this.y + this.sizeY - this.tolerance / 2]
         ]
     }
-
 
 }

@@ -21,7 +21,11 @@ export const EXPLOSIONS = {
 }
 
 export const SHOTS = {
-    shot1: EFFECTS_PATH + "shot_1.png"
+    shot1: {
+        imgPath: EFFECTS_PATH + "shot_1.png",
+        imgSizeX: 8,
+        imgSizeY: 25
+    }  
 }
 
 export const BACKGROUND = {
