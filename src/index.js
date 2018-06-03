@@ -1,30 +1,27 @@
 import Enemy from "./elements/enemy";
 import Player from "./elements/player";
-import Collision from "./environment/collision"
 import Elements from "./elements/elements";
 
 let player;
-let collision;
+let backgroundImage;
 
 function setup() {
 	createCanvas(800, 600);
-	player = new Player(0, "1");
-	Elements.add(player);
-	Elements.add(new Enemy(1, "1", width / 2));
-	Elements.add(new Enemy(2, "1", width / 2 - 200));
-	Elements.add(new Enemy(3, "1", width / 2 + 200));
-	collision = new Collision();
+	player = new Player("1");
+	Elements.add(player, new Enemy("1", width / 2));
+	backgroundImage = loadImage("assets/img/environment/level_2.png");
+
 }
 
 function draw() {
-	
-	background(255, 204, 0);
+
+	background(backgroundImage);
 
 	Elements.list.forEach(e => {
 		e.display();
 	});
 
-	collision.check(Elements.list);
+	Elements.checkCollisions();
 	
 	if (keyIsDown(LEFT_ARROW)) {
 		player.move(-1, 0);

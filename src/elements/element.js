@@ -3,8 +3,7 @@ import Elements from "./elements";
 
 export default class Element {
 
-    constructor(id, image, x, y, sizeX, sizeY, tolerance) {
-        this.id = id;
+    constructor(image, x, y, sizeX, sizeY, tolerance) {
         this.image = loadImage(image);
         this.x = x;
         this.y = y;
@@ -15,7 +14,7 @@ export default class Element {
         this.isDestroyed = false;
         this.status = true;
         this.explosionCounter = 0;
-        this.index;
+        this.id = 0;
     }
 
     display() {
@@ -36,9 +35,8 @@ export default class Element {
         this.display();
     }
 
-    destroy(index) {
+    destroy() {
         this.isDestroyed = true;
-        this.index = index;
     }
 
     explosion() {
@@ -46,7 +44,8 @@ export default class Element {
         let actualImg = Math.floor(this.explosionCounter / 10) + 1;
 
         if (actualImg > 2) {
-            Elements.remove(this.id)
+            Elements.remove(this.id);
+            this.status = false;
             return;
         }
 
