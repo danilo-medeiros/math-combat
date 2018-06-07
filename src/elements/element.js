@@ -3,8 +3,9 @@ import Elements from "./elements";
 
 export default class Element {
 
-    constructor(image, x, y, sizeX, sizeY, tolerance) {
-        this.image = loadImage(image);
+    constructor(p, image, x, y, sizeX, sizeY, tolerance) {
+        this.p = p;
+        this.image = p.loadImage(image);
         this.x = x - sizeX / 2;
         this.y = y - sizeY / 2;
         this.sizeX = sizeX;
@@ -17,7 +18,7 @@ export default class Element {
     }
 
     display() {
-        image(this.image, this.x, this.y, this.sizeX, this.sizeY);
+        this.p.image(this.image, this.x, this.y, this.sizeX, this.sizeY);
         if (this.isDestroyed)
             this.explosion();
     }
