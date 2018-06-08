@@ -9,15 +9,15 @@ export default class Plane extends Element {
 		* Esta classe define o comportamento do avião
 	*/
 
-    constructor(type, x, y) {
-		super(PLANES[type].imgPath, x, y, 50, 50);
-		this.counter = 0;
-		this.timing = parseInt((0.5/Math.random()) * 10);
+    constructor(image, x, y) {
+		super(image, x, y, 50, 50);
+		this.timing = parseInt((0.5 / Math.random()) * 10);
 		this.tolerance = 20;
+		this.counter = 0;
 		this.timeToShoot = 0;
 	}
 
-	display() {
+	showImage(callback) {
 		this.counter++;
 		if (this.counter === this.timing) {
 			this.y += 1;
@@ -28,7 +28,7 @@ export default class Plane extends Element {
 		}
 		if (this.timeToShoot > 0)
 			this.timeToShoot--;
-		super.display();
+		super.showImage(callback);
 	}
 
 	destroy() {

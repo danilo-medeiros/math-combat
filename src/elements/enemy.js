@@ -2,26 +2,27 @@ import Plane from "./plane";
 
 export default class Enemy extends Plane {
 
-    constructor(type, x) {
-        super("enemy" + type, x, 50);
+    constructor(image, x, defaultMovement) {
+        super(image, x, 50);
+        this.defaultMovement = this[defaultMovement];
         this.counterToMove = 0;
         this.startingX = this.x;
     }
 
-    display() {
-        //this.senoid();
-        super.display();
+    showImage(callback) {
+        this.defaultMovement();
+        super.showImage(callback);
     }
 
     zigzag() {
         this.counterToMove++;
         let absCounter = Math.abs(this.counterToMove);
         if (absCounter < 80) {
-            this.x -= 1;
-            this.y += 1;
+            this.x -= 10;
+            this.y += 10;
         } else  if (absCounter < 160){
-            this.x += 1;
-            this.y += 1;
+            this.x += 10;
+            this.y += 10;
         } else {
             this.counterToMove = 0;
         }

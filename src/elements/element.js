@@ -3,24 +3,30 @@ import Elements from "./elements";
 
 export default class Element {
 
-    constructor(p, image, x, y, sizeX, sizeY, tolerance) {
-        this.p = p;
-        this.image = p.loadImage(image);
+    constructor(image, x, y, sizeX, sizeY, tolerance) {
+        this.image = image;
         this.x = x - sizeX / 2;
         this.y = y - sizeY / 2;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.tolerance = tolerance;
+
         this.speed = 1;
         this.isDestroyed = false;
-        this.explosionCounter = 0;
-        this.id = 0;
+        this.explosionCounter = 1;
+        this.canRemove = false;
     }
-
+/* 
     display() {
         this.p.image(this.image, this.x, this.y, this.sizeX, this.sizeY);
         if (this.isDestroyed)
             this.explosion();
+    } */
+
+    showImage(callback) {
+        if (this.isDestroyed)
+            this.explosionCounter += 0.2;
+        callback(this.image, this.x, this.y, this.sizeX, this.sizeY);
     }
 
     // Verifica se o elemento estará nas bordas direita ou 
@@ -28,38 +34,23 @@ export default class Element {
     // Retorna a própria posição se sim, a nova posição se não.
     newPositionX(x){
         let newPosX = this.x + x * this.speed;
-        if (newPosX < width - this.sizeX && newPosX > 0)
+        if (newPosX < window.innerWidth - this.sizeX && newPosX > 0)
             return newPosX;
+        this.canRemove = true;
         return this.x;
     }
 
     newPositionY(y){
         let newPosY = this.y + y * this.speed;
-        if (newPosY < height - this.sizeY && newPosY > 0)
+        if (newPosY < window.innerHeight - this.sizeY && newPosY > 0)
             return newPosY;
+        this.canRemove = true;
         return this.y;
     }
 
     move(x, y) {
         this.x = this.newPositionX(x);
         this.y = this.newPositionY(y);
-        this.display();
-    }
-
-    destroy() {
-        this.isDestroyed = true;
-    }
-
-    explosion() {
-        this.explosionCounter++;
-        let actualImg = Math.floor(this.explosionCounter / 10) + 1;
-
-        if (actualImg > 2) {
-            Elements.remove(this.id);
-            this.status = false;
-            return;
-        }
-        this.image = loadImage(EXPLOSIONS["explosion" + actualImg.toString()]);
     }
 
     containsPoint(x, y) {

@@ -5,29 +5,29 @@ import Elements from "./elements";
 export default class Shot extends Element {
 
     constructor(directionX, directionY, image, x, y) {
-        super(SHOTS[image].imgPath, x, y, SHOTS[image].imgSizeX, SHOTS[image].imgSizeY, 0);
+        super(image, x, y, 7, 25, 10);
         this.directionX = directionX;
         this.directionY = directionY;
     }
 
-    display() {
-        this.move(-1 * this.directionX, -1 * this.directionY);
-    }
-
-    destroy() {
-        Elements.remove(this.id);
+    showImage(callback) {
+        this.move(-1 * this.directionX, this.directionY);
+        super.showImage(callback);
     }
 
     move(x, y) {
         let newPositionX = this.newPositionX(x);
         let newPositionY = this.newPositionY(y);
-        if (newPositionX === this.x && newPositionY === this.y) {
-            Elements.remove(this.id);
-            return;
-        }
         this.x = newPositionX;
         this.y = newPositionY;
-        super.display();
+    }
+
+    hasCollision(anotherElement) {
+        if (super.hasCollision(anotherElement)) {
+            this.canRemove = true;
+            return true;
+        }
+        return false;
     }
 
 }
