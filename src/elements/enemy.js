@@ -14,20 +14,6 @@ export default class Enemy extends Plane {
         super.showImage(callback);
     }
 
-    zigzag() {
-        this.counterToMove++;
-        let absCounter = Math.abs(this.counterToMove);
-        if (absCounter < 80) {
-            this.x -= 10;
-            this.y += 10;
-        } else  if (absCounter < 160){
-            this.x += 10;
-            this.y += 10;
-        } else {
-            this.counterToMove = 0;
-        }
-    }
-
     senoid() {
         this.counterToMove++;
         this.x = this.startingX + Math.sin(this.counterToMove * Math.PI / 180) * 50;
@@ -35,5 +21,11 @@ export default class Enemy extends Plane {
         if (this.counterToMove === 360)
             this.counterToMove = 0;
     }
+
+    constant() {
+        this.y += 1;
+    }
+
+    
 
 }

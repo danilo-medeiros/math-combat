@@ -4,6 +4,8 @@ import Element from "../elements/element";
 import Shot from "../elements/shot";
 
 const DEFAULT_SHOT_TIME = 200;
+const DEFAULT_TIME_BETWEEN_OBJECTS = 7;
+const DEFAULT_TIME_BETWEEN_FUNCTIONS = 10;
 
 export default class Level1 {
 
@@ -13,25 +15,14 @@ export default class Level1 {
         this.shotTiming = DEFAULT_SHOT_TIME;
 
         this.player = new Player(p.loadImage("assets/img/plane01.png"));
+        this.elementsToInsert = [{
+            element: this.player,
+            when: 0
+        }];
+        
+        this.insertElements(p);
 
-        this.elementsToInsert = [
-            {
-                element: this.player,
-                when: 0
-            }, 
-            {
-                element: new Enemy(p.loadImage("assets/img/plane01.png"), window.innerWidth / 2, "senoid"),
-                when: 5
-            },
-            {
-                element: new Enemy(p.loadImage("assets/img/plane01.png"), window.innerWidth / 2, "senoid"),
-                when: 12
-            },
-            {
-                element: new Enemy(p.loadImage("assets/img/plane01.png"), window.innerWidth / 2, "senoid"),
-                when: 19
-            },
-        ]
+        
 
         this.elements = [];
 
@@ -70,7 +61,7 @@ export default class Level1 {
                 }
 
                 e.showImage((image, x, y, sizeX, sizeY) => {
-                    if (e.isDestroyed && e.explosionCounter <= this.explosions.length) {
+                    if (e.isDestroyed && e.explosionCounter <= this.explosions.length && !e.canRemove) {
                         p.image(this.explosions[Math.floor(e.explosionCounter)], x, y, sizeX, sizeY);
                     } else if (this.explosions.length < e.explosionCounter || e.canRemove) {
                         this.elements.splice(i, 1)
@@ -106,10 +97,32 @@ export default class Level1 {
         }
         if (p.keyIsDown(32)) {
             if (this.shotTiming === DEFAULT_SHOT_TIME) {
-                this.elements.push(new Shot(0, -5, p.loadImage("assets/img/shot01.png"), this.player.x + this.player.sizeX / 2, this.player.y - 100));
+                this.elements.push(new Shot(0, -5, p.loadImage("assets/img/shot01.png"), this.player.x + this.player.sizeX / 2, this.player.y - 10));
                 this.shotTiming--;
             }
         }   
+    }
+
+    insertElements(p) {
+        let randomX = this.getRandomX();
+        for (let i = 1; i < 5; i++) {
+            this.elementsToInsert.push({
+                element: new Enemy(p.loadImage("assets/img/plane01.png"), randomX, "constant"),
+                when: i * DEFAULT_TIME_BETWEEN_OBJECTS
+            })
+        }
+        randomX = this.getRandomX();
+        let nextTime = (DEFAULT_TIME_BETWEEN_OBJECTS * 4) + DEFAULT_TIME_BETWEEN_FUNCTIONS;
+        for (let i = 0; i < 5; i++) {
+            this.elementsToInsert.push({
+                element: new Enemy(p.loadImage("assets/img/plane01.png"), randomX, "senoid"),
+                when: nextTime + (i * DEFAULT_TIME_BETWEEN_OBJECTS)
+            })
+        }
+    }
+
+    getRandomX() {
+        return window.innerWidth / 4 + (window.innerWidth / 2) * Math.random();
     }
     
 }
