@@ -1,7 +1,6 @@
 import Element from "./element";
 import { PLANES, EXPLOSIONS, SHOTS } from "../shared/constants";
 import Shot from "./shot";
-import Elements from "./elements";
 
 export default class Plane extends Element {
 
@@ -11,7 +10,7 @@ export default class Plane extends Element {
 
     constructor(image, x, y) {
 		super(image, x, y, 50, 50);
-		this.timing = parseInt((0.5 / Math.random()) * 10);
+		this.timing = 10;
 		this.tolerance = 20;
 		this.counter = 0;
 		this.timeToShoot = 0;

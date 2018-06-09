@@ -1,6 +1,5 @@
 import Element from "./element";
 import { SHOTS } from "../shared/constants";
-import Elements from "./elements";
 
 export default class Shot extends Element {
 

@@ -2,16 +2,33 @@ import Player from "../elements/player";
 import Enemy from "../elements/enemy";
 import Element from "../elements/element";
 import Shot from "../elements/shot";
+import Background from "./background";
 
-const DEFAULT_SHOT_TIME = 200;
+const DEFAULT_SHOT_TIME = 20;
 const DEFAULT_TIME_BETWEEN_OBJECTS = 7;
 const DEFAULT_TIME_BETWEEN_FUNCTIONS = 10;
 
 export default class Level1 {
 
-	constructor(p) {
+	constructor(p, scoreSpan, lifeSpan) {
 
+        this.backgroundImage = p.loadImage("assets/img/level03.png");
+
+        this.background1 = new Background(this.backgroundImage);
+        this.background2 = new Background(this.backgroundImage, -1*window.innerHeight);
+
+        // Pontos do jogador;
+        this.score = 0;
+        this.scoreSpan = scoreSpan;
+        this.scoreSpan.innerHTML = this.score;
+        // Contador para atualizar o cenário do jogo;
         this.counter = 0;
+
+        this.life = 100;
+        this.lifeSpan = lifeSpan;
+        this.lifeSpan.innerHTML = this.life + "%";
+
+        // Delay para que o jogador possa atirar de novo;
         this.shotTiming = DEFAULT_SHOT_TIME;
 
         this.player = new Player(p.loadImage("assets/img/plane01.png"));
@@ -37,8 +54,9 @@ export default class Level1 {
         }
 
         p.draw = () => {
+            
+            this.updateBackground(p);
 
-            p.background("#000");
             this.counter++;
 
             if (this.elementsToInsert.length > 0) {
@@ -56,6 +74,8 @@ export default class Level1 {
                 let indexOfCollision = this.elements.findIndex((el, j) => e.hasCollision(el) && i !== j);
 
                 if (indexOfCollision > -1) {
+                    if (indexOfCollision > 0 && i > 0)
+                        this.updateScore(50);
                     e.isDestroyed = true;
                     this.elements[indexOfCollision].isDestroyed = true;
                 }
@@ -107,22 +127,35 @@ export default class Level1 {
         let randomX = this.getRandomX();
         for (let i = 1; i < 5; i++) {
             this.elementsToInsert.push({
-                element: new Enemy(p.loadImage("assets/img/plane01.png"), randomX, "constant"),
-                when: i * DEFAULT_TIME_BETWEEN_OBJECTS
+                element: new Enemy(p.loadImage("assets/img/enemy01.png"), randomX, "constant"),
+                when: i * DEFAULT_TIME_BETWEEN_OBJECTS + 10
             })
         }
         randomX = this.getRandomX();
         let nextTime = (DEFAULT_TIME_BETWEEN_OBJECTS * 4) + DEFAULT_TIME_BETWEEN_FUNCTIONS;
         for (let i = 0; i < 5; i++) {
             this.elementsToInsert.push({
-                element: new Enemy(p.loadImage("assets/img/plane01.png"), randomX, "senoid"),
-                when: nextTime + (i * DEFAULT_TIME_BETWEEN_OBJECTS)
+                element: new Enemy(p.loadImage("assets/img/enemy02.png"), randomX, "senoid"),
+                when: nextTime + (i * DEFAULT_TIME_BETWEEN_OBJECTS) + 10
             })
         }
     }
 
     getRandomX() {
         return window.innerWidth / 4 + (window.innerWidth / 2) * Math.random();
+    }
+
+    updateScore(score) {
+        this.score += score;
+        this.scoreSpan.innerHTML = this.score;
+    }
+
+    updateBackground(p) {
+        p.background("#2172c7");
+        this.background1.updatePosition();
+        this.background2.updatePosition();
+        p.image(this.background1.image, 0, this.background1.posY, window.innerWidth);
+        p.image(this.background2.image, 0, this.background2.posY, window.innerWidth);
     }
     
 }

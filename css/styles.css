@@ -7,10 +7,50 @@ body {
     overflow: hidden;
     text-align: center;
     background: #000;
+    font-family: "Ubuntu";
 }
 
 .hidden {
     display: none;
+}
+
+.hud {
+    position: absolute;
+    width: 100%;
+    color: yellow;
+}
+
+.hud div {
+    background: rgba(000, 000, 0, 0.2);
+    padding: 10px 0px;
+    margin: auto;
+}
+
+.hud-top div {
+    text-align: right;
+    width: 20%;
+    margin-right: 0px;
+    padding: 10px;
+}
+
+.hud-bottom {
+    bottom: 0;
+}
+
+.hud-bottom div {
+    width: 70%;
+}
+
+.btn-function, .btn-menu {
+    color: yellow;
+    border: 2px solid yellow;
+    background: transparent;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.btn-function .key {
+    color: red;
 }
 
 .menu > div {
@@ -25,8 +65,6 @@ body {
 }
 
 .btn-menu {
-    background: #CCC;
-    color: #000;
     padding: 10px 20px;
     font-size: 20px;
 }

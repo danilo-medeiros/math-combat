@@ -1,5 +1,4 @@
 import { EXPLOSIONS } from "../shared/constants";
-import Elements from "./elements";
 
 export default class Element {
 
