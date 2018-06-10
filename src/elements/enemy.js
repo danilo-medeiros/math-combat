@@ -2,9 +2,10 @@ import Plane from "./plane";
 
 export default class Enemy extends Plane {
 
-    constructor(image, x, defaultMovement) {
+    constructor(image, x, defaultMovement, counterToShot = 50) {
         super(image, x, 50);
         this.defaultMovement = this[defaultMovement];
+        this.counterToShot = counterToShot;
         this.counterToMove = 0;
         this.startingX = this.x;
     }

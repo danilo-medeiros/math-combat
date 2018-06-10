@@ -9,9 +9,8 @@ export default class Plane extends Element {
 	*/
 
     constructor(image, x, y) {
-		super(image, x, y, 50, 50);
+		super(image, x, y, image.width / 3, image.height / 3);
 		this.timing = 10;
-		this.tolerance = 20;
 		this.counter = 0;
 		this.timeToShoot = 0;
 	}

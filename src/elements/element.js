@@ -2,7 +2,7 @@ import { EXPLOSIONS } from "../shared/constants";
 
 export default class Element {
 
-    constructor(image, x, y, sizeX, sizeY, tolerance) {
+    constructor(image, x, y, sizeX, sizeY, tolerance = 0) {
         this.image = image;
         this.x = x - sizeX / 2;
         this.y = y - sizeY / 2;
@@ -15,12 +15,6 @@ export default class Element {
         this.explosionCounter = 1;
         this.canRemove = false;
     }
-/* 
-    display() {
-        this.p.image(this.image, this.x, this.y, this.sizeX, this.sizeY);
-        if (this.isDestroyed)
-            this.explosion();
-    } */
 
     showImage(callback) {
         if (this.isDestroyed)
@@ -57,7 +51,6 @@ export default class Element {
         return result[0] >= 0 && result[0] <= this.sizeX
             && result[1] >= 0 && result[1] <= this.sizeY;
     }
-
  
     hasCollision(anotherElement) {
         let interval1 = anotherElement.getDestroyableInterval();
