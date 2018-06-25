@@ -2,49 +2,95 @@
 <html>
 
 <head>
-    <title></title>
+    <title>Math combat</title>
     <link rel="stylesheet" href="css/styles.css" />
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </head>
 
 <body>
-    <div class='hud hud-top hidden'>
-        <div>
-            <h5>LIFE: <span id='life'></span></h5><br>
-            <h5>SCORE: <span id='score'></span></h5>
+    <div>
+
+        <div class='floating-div'>
+            <button onclick="location.reload()" type='button' class='btn-function main-menu-button'>Menu principal</button>
         </div>
-    </div>
-    <div class='hud hud-bottom hidden'>
-        <div>
-            <button class='btn-function' type='button'><span class='key'>[1]</span> f(x) = sin(x)</button>
-            <button class='btn-function' type='button'><span class='key'>[2]</span> f(x) = log(x)</button>
-            <button class='btn-function' type='button'><span class='key'>[3]</span> f(x) = x</button>
-        </div>
-    </div>
-    <div id='game'></div>
-    <div class='hidden' id='plane-selection'>
-        <div class='items'>
-            <div class='option'>
-                <img src="assets/img/plane01.png" alt="First plane">
-                <span>Lockheed Martin F-22 "Raptor"</span>
-                <span>United States</span>
-                <button type='button' class='btn-function'>SELECT</button>
-            </div>
-            <div class='option'>
-                <img src="assets/img/plane02.png" alt="Second plane">
-                <span>McDonnell Douglas F-15 Eagle</span>
-                <span>United States</span>
-                <button type='button' class='btn-function'>SELECT</button>
+        <div class='hud hud-top hidden'>
+            <div>
+                <h5>VIDA: <span id='life'></span></h5><br>
+                <h5>PONTOS: <span id='score'></span></h5>
             </div>
         </div>
-    </div>
-    <div class='menu' id='main-menu'>
-        <div class='menu-title'>
-            <h1>Math Combat!</h1>
+        <div id='game' class=''></div>
+        <div class='hidden' id='plane-selection'>
+            <div class='items'>
+                <div class='items-row'>
+                    <div id="plane_1" class='option btn-plane-selection'>
+                        <img src="assets/img/plane01.png" alt="Plane">
+                        <span>Lockheed Martin F-22 "Raptor"</span>
+                        <span>United States</span>
+                        
+                    </div>
+                    <div id="plane_2" class='option btn-plane-selection'>
+                        <img src="assets/img/plane02.png" alt="Plane">
+                        <span>McDonnell Douglas F-15 Eagle</span>
+                        <span>United States</span>
+                    </div>
+                    <div id="plane_3" class='option btn-plane-selection'>
+                        <img src="assets/img/plane03.png" alt="Plane">
+                        <span>MIG-25 "Foxbat"</span>
+                        <span>Russia</span>
+                    </div>
+                    <div id="plane_4" class='option btn-plane-selection'>
+                        <img src="assets/img/plane04.png" alt="Plane">
+                        <span>A-5A</span>
+                        <span>United States</span>
+                    </div>
+                    <div id="plane_5" class='option btn-plane-selection'>
+                        <img src="assets/img/plane05.png" alt="Plane">
+                        <span>Sukhoi Su-37 "Flanker-F"</span>
+                        <span>Russia</span>
+                    </div>
+    
+                </div>
+            </div>
         </div>
-        <div class='menu-body'>
-            <button class='btn-menu' id='play' type='button'>Play game</button>
+    
+        <div class='hidden' id='level-selection'>
+            <div class='items'>
+                <div class='items-row'>
+                    <div id="level_1" class='option btn-level-selection'>
+                        <img src="assets/img/level01.png" alt="Nível">
+                        <span>Céu azul</span>
+                        <span>Principante</span>
+                    </div>
+                    <div id="level_2" class='option btn-level-selection'>
+                        <img src="assets/img/level02.png" alt="Nível">
+                        <span>Alpes</span>
+                        <span>Fácil</span>
+                    </div>
+                    <div id="level_3" class='option btn-level-selection'>
+                        <img src="assets/img/level03.png" alt="Nível">
+                        <span>Deserto</span>
+                        <span>Médio</span>
+                    </div>
+                    <div id="level_4" class='option btn-level-selection'>
+                        <img src="assets/img/level04.png" alt="Nível">
+                        <span>Céu noturno</span>
+                        <span>Difícil</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class='menu' id='main-menu'>
+            <div class='menu-title'>
+                <h1>Math Combat!</h1>
+            </div>
+            <div class='menu-body'>
+                <button class='btn-menu' id='play' type='button'>JOGAR</button>
+                <button class='btn-menu' id='choose' type='button'>AVIÕES</button>
+                <button class='btn-menu' id='levels' type='button'>NÍVEIS</button>
+            </div>
         </div>
     </div>
 </body>

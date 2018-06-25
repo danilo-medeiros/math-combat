@@ -29,7 +29,6 @@ export default class Element {
         let newPosX = this.x + x * this.speed;
         if (newPosX < window.innerWidth - this.sizeX && newPosX > 0)
             return newPosX;
-        this.canRemove = true;
         return this.x;
     }
 
@@ -37,7 +36,6 @@ export default class Element {
         let newPosY = this.y + y * this.speed;
         if (newPosY < window.innerHeight - this.sizeY && newPosY > 0)
             return newPosY;
-        this.canRemove = true;
         return this.y;
     }
 

@@ -3,10 +3,11 @@ import { SHOTS } from "../shared/constants";
 
 export default class Shot extends Element {
 
-    constructor(directionX, directionY, image, x, y) {
+    constructor(directionX, directionY, image, x, y, canDestroyPlayer = false) {
         super(image, x, y, 7, 25, 10);
         this.directionX = directionX;
         this.directionY = directionY;
+        this.canDestroyPlayer = canDestroyPlayer;
     }
 
     showImage(callback) {
@@ -15,13 +16,16 @@ export default class Shot extends Element {
     }
 
     move(x, y) {
-        let newPositionX = this.newPositionX(x);
-        let newPositionY = this.newPositionY(y);
-        this.x = newPositionX;
-        this.y = newPositionY;
+        if (this.y < window.innerHeight && this.y > 0) {
+            this.y += this.directionY;
+        } else {
+            this.canRemove = true;
+        }
     }
 
-    hasCollision(anotherElement) {
+    hasCollision(anotherElement, isPlayer) {
+        if (isPlayer && !this.canDestroyPlayer || !isPlayer && this.canDestroyPlayer)
+            return false;
         if (super.hasCollision(anotherElement)) {
             this.canRemove = true;
             return true;
