@@ -47,11 +47,11 @@ export default class Level {
 
         this.playerIsDetroyed = false;
         this.gameEnded = false;
+        this.exitGame = false;
 
         this.initializeElements(p, selectedLevelNumber);
 
         p.setup = () => {
-            
 
             this.backgroundImage = p.loadImage(SCENARIO[selectedLevelNumber].background);
 
@@ -74,7 +74,8 @@ export default class Level {
 
         p.draw = () => {
             if (this.gameEnded) {
-                confirm("Fim de jogo! \nSua pontuação foi: " + this.score);
+                alert("Fim de jogo! \nSua pontuação foi: " + this.score);
+                p.noLoop();
                 window.location.reload();
             }
             this.counter++;
@@ -88,9 +89,7 @@ export default class Level {
                     e.counterToShot = 50;
                     this.elements.push(new Shot(0, 10, p.loadImage("assets/img/shot02.png"), e.x + e.sizeX / 2, e.y + 100, true));
                 }
-                    
-                    
-
+                   
                 e.showImage((image, x, y, sizeX, sizeY) => {
                     if (e.isDestroyed && e.explosionCounter <= this.explosions.length && !e.canRemove) {
                         let explosionImage = this.explosions[Math.floor(e.explosionCounter)];
@@ -148,10 +147,14 @@ export default class Level {
         if (indexOfCollision > -1) {
             if (indexOfCollision > 0 && i > 0 && !this.elements[indexOfCollision].isDestroyed)
                 this.updateScore(50);
-            else if (!this.elements[indexOfCollision].isDestroyed)
-                this.updateLife(this.life);
-            e.isDestroyed = true;
-            this.elements[indexOfCollision].isDestroyed = true;
+            else if (!this.elements[indexOfCollision].isDestroyed) {
+                this.updateLife(10 * parseInt(this.selectedLevelNumber));
+                this.elements[0].shake = true;
+            }
+            if ((i === 0 || indexOfCollision === 0) && this.life <= 0 || (i !== 0 && indexOfCollision !== 0)) {
+                e.isDestroyed = true;
+                this.elements[indexOfCollision].isDestroyed = true;
+            }
         }
     }
 

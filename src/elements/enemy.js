@@ -5,7 +5,7 @@ export default class Enemy extends Plane {
     constructor(image, x, defaultMovement, defaultSpeed = 1) {
         super(image, x, 50);
         this.defaultMovement = this[defaultMovement];
-        this.counterToShot = 200 / defaultSpeed;
+        this.counterToShot = 100 / defaultSpeed;
         this.counterToMove = 0;
         this.defaultSpeed = defaultSpeed;
         this.startingX = this.x;
@@ -23,6 +23,17 @@ export default class Enemy extends Plane {
         this.moveDown();
         if (this.counterToMove === 360)
             this.counterToMove = 0;
+    }
+
+    bigsenoid() {
+        this.senoid();
+        this.x = this.x * 0.4;
+    }
+
+    denominator() {
+        this.counterToMove++;
+        this.x = this.startingX + (10 / (this.counterToMove - 50)) * 50;
+        this.moveDown();
     }
 
     constant() {
