@@ -1,7 +1,7 @@
 {
   "name": "math-combat",
   "version": "1.0.0",
-  "description": "A simple aircrat game",
+  "description": "A simple aircraft game",
   "main": "index.js",
   "devDependencies": {
     "babel-core": "^6.26.3",
